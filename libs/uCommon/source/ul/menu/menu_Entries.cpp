@@ -30,7 +30,7 @@ namespace ul::menu {
             const auto rc = nsGetApplicationDesiredLanguage(&g_TempNacp, &lang_entry);
             if(R_FAILED(rc) || (lang_entry == nullptr)) {
                 for(u32 i = 0; i < 16; i++) {
-                    lang_entry = &g_TempNacp.lang[i];
+                    lang_entry = &g_TempNacp.lang_data.lang[i];
                     if((lang_entry->name[0] > 0) && (lang_entry->author[0] > 0)) {
                         break;
                     }
