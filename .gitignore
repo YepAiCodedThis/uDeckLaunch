@@ -24,3 +24,5 @@ projects/uDesigner/assets/default-theme.ultheme
 *.zip
 *.7z
 dev/
+compile_flags.txt
+.clangd

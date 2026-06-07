@@ -71,7 +71,7 @@ var ENVIRONMENT_IS_SHELL = !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIR
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: /tmp/tmpa6208syd.js
+// include: /tmp/tmpnzlzviw4.js
 
   if (!Module['expectedDataFileDownloads']) Module['expectedDataFileDownloads'] = 0;
   Module['expectedDataFileDownloads']++;
@@ -204,24 +204,24 @@ Module['FS_createPath']("/", "assets", true, true);
 
   })();
 
-// end include: /tmp/tmpa6208syd.js
-// include: /tmp/tmp13_4ucs1.js
+// end include: /tmp/tmpnzlzviw4.js
+// include: /tmp/tmptbhopq74.js
 
     // All the pre-js content up to here must remain later on, we need to run
     // it.
     if ((typeof ENVIRONMENT_IS_WASM_WORKER != 'undefined' && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != 'undefined' && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != 'undefined' && ENVIRONMENT_IS_AUDIO_WORKLET)) Module['preRun'] = [];
     var necessaryPreJSTasks = Module['preRun'].slice();
-  // end include: /tmp/tmp13_4ucs1.js
-// include: /tmp/tmpkgm6rlfr.js
+  // end include: /tmp/tmptbhopq74.js
+// include: /tmp/tmp6u316qeo.js
 
     if (!Module['preRun']) throw 'Module.preRun should exist because file support used it; did a pre-js delete it?';
     necessaryPreJSTasks.forEach((task) => {
       if (Module['preRun'].indexOf(task) < 0) throw 'All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?';
     });
-  // end include: /tmp/tmpkgm6rlfr.js
+  // end include: /tmp/tmp6u316qeo.js
 
 
-var arguments_ = [];
+var programArgs = [];
 var thisProgram = './this.program';
 var quit_ = (status, toThrow) => {
   throw toThrow;
@@ -281,7 +281,7 @@ readAsync = async (filename, binary = true) => {
     thisProgram = process.argv[1].replace(/\\/g, '/');
   }
 
-  arguments_ = process.argv.slice(2);
+  programArgs = process.argv.slice(2);
 
   // MODULARIZE will export the module in the proper place outside, we don't need to export here
   if (typeof module != 'undefined') {
@@ -882,7 +882,7 @@ async function createWasm() {
   return exports;
 }
 
-var compilerSettings = {"ASSERTIONS":1,"STACK_OVERFLOW_CHECK":1,"CHECK_NULL_WRITES":true,"VERBOSE":false,"INVOKE_RUN":true,"EXIT_RUNTIME":false,"STACK_SIZE":65536,"MALLOC":"dlmalloc","ABORTING_MALLOC":0,"INITIAL_HEAP":16777216,"INITIAL_MEMORY":-1,"MAXIMUM_MEMORY":2147483648,"ALLOW_MEMORY_GROWTH":1,"MEMORY_GROWTH_GEOMETRIC_STEP":0.2,"MEMORY_GROWTH_GEOMETRIC_CAP":100663296,"MEMORY_GROWTH_LINEAR_STEP":-1,"MEMORY64":0,"INITIAL_TABLE":-1,"ALLOW_TABLE_GROWTH":false,"GLOBAL_BASE":1024,"TABLE_BASE":1,"USE_CLOSURE_COMPILER":false,"CLOSURE_WARNINGS":"quiet","IGNORE_CLOSURE_COMPILER_ERRORS":false,"DECLARE_ASM_MODULE_EXPORTS":true,"INLINING_LIMIT":false,"SUPPORT_BIG_ENDIAN":false,"SAFE_HEAP":0,"SAFE_HEAP_LOG":false,"EMULATE_FUNCTION_POINTER_CASTS":false,"EXCEPTION_DEBUG":false,"LIBRARY_DEBUG":false,"SYSCALL_DEBUG":false,"SOCKET_DEBUG":false,"DYLINK_DEBUG":0,"FS_DEBUG":false,"SOCKET_WEBRTC":false,"WEBSOCKET_URL":"ws://","PROXY_POSIX_SOCKETS":false,"WEBSOCKET_SUBPROTOCOL":"binary","OPENAL_DEBUG":false,"WEBSOCKET_DEBUG":false,"GL_ASSERTIONS":false,"TRACE_WEBGL_CALLS":false,"GL_DEBUG":false,"GL_TESTING":false,"GL_MAX_TEMP_BUFFER_SIZE":2097152,"GL_UNSAFE_OPTS":true,"FULL_ES2":1,"GL_EMULATE_GLES_VERSION_STRING_FORMAT":true,"GL_EXTENSIONS_IN_PREFIXED_FORMAT":true,"GL_SUPPORT_AUTOMATIC_ENABLE_EXTENSIONS":true,"GL_SUPPORT_SIMPLE_ENABLE_EXTENSIONS":true,"GL_TRACK_ERRORS":true,"GL_SUPPORT_EXPLICIT_SWAP_CONTROL":false,"GL_POOL_TEMP_BUFFERS":true,"GL_EXPLICIT_UNIFORM_LOCATION":false,"GL_EXPLICIT_UNIFORM_BINDING":false,"USE_WEBGL2":1,"MIN_WEBGL_VERSION":1,"MAX_WEBGL_VERSION":2,"WEBGL2_BACKWARDS_COMPATIBILITY_EMULATION":false,"FULL_ES3":1,"LEGACY_GL_EMULATION":false,"GL_FFP_ONLY":false,"GL_PREINITIALIZED_CONTEXT":false,"STB_IMAGE":false,"GL_DISABLE_HALF_FLOAT_EXTENSION_IF_BROKEN":false,"GL_WORKAROUND_SAFARI_GETCONTEXT_BUG":true,"GL_ENABLE_GET_PROC_ADDRESS":true,"JS_MATH":false,"LEGACY_VM_SUPPORT":false,"ENVIRONMENT":["web","webview","worker","node"],"LZ4":false,"DISABLE_EXCEPTION_CATCHING":0,"EXCEPTION_CATCHING_ALLOWED":[],"DISABLE_EXCEPTION_THROWING":false,"EXPORT_EXCEPTION_HANDLING_HELPERS":false,"EXCEPTION_STACK_TRACES":1,"WASM_LEGACY_EXCEPTIONS":true,"ASYNCIFY":0,"ASYNCIFY_IMPORTS":[],"ASYNCIFY_IGNORE_INDIRECT":false,"ASYNCIFY_STACK_SIZE":4096,"ASYNCIFY_REMOVE":[],"ASYNCIFY_ADD":[],"ASYNCIFY_PROPAGATE_ADD":true,"ASYNCIFY_ONLY":[],"ASYNCIFY_ADVISE":false,"ASYNCIFY_DEBUG":0,"ASYNCIFY_EXPORTS":[],"JSPI":0,"JSPI_EXPORTS":[],"JSPI_IMPORTS":[],"EXPORTED_RUNTIME_METHODS":{},"INCOMING_MODULE_JS_API":{},"CASE_INSENSITIVE_FS":false,"FILESYSTEM":true,"FORCE_FILESYSTEM":1,"NODERAWFS":false,"NODE_HOST_ENV":false,"NODE_CODE_CACHING":false,"EXPORTED_FUNCTIONS":{},"EXPORT_ALL":false,"EXPORT_KEEPALIVE":true,"RETAIN_COMPILER_SETTINGS":1,"DEFAULT_LIBRARY_FUNCS_TO_INCLUDE":["$ExitStatus","$HEAP16","$HEAP32","$HEAP64","$HEAP8","$HEAPF32","$HEAPF64","$HEAPU16","$HEAPU32","$HEAPU64","$HEAPU8","$addOnPostRun","$addOnPreRun","$addRunDependency","$callRuntimeCallbacks","$getValue","$noExitRuntime","$ptrToString","$removeRunDependency","$setValue","$stackRestore","$stackSave","$warnOnce","$wasmMemory","__assert_fail","__cxa_begin_catch","__cxa_end_catch","__cxa_find_matching_catch_2","__cxa_find_matching_catch_3","__cxa_rethrow","__cxa_throw","__cxa_uncaught_exceptions","__resumeException","__syscall_fcntl64","__syscall_ftruncate64","__syscall_ioctl","__syscall_openat","_abort_js","_emscripten_log_formatted","_emscripten_system","_localtime_js","_mktime_js","_tzset_js","emscripten_date_now","emscripten_resize_heap","emscripten_set_main_loop","emscripten_set_wheel_callback_on_thread","environ_get","environ_sizes_get","fd_close","fd_read","fd_seek","fd_write","glActiveTexture","glAttachShader","glBindBuffer","glBindFramebuffer","glBindTexture","glBindVertexArrayOES","glBlendEquation","glBlendEquationSeparate","glBlendFuncSeparate","glBufferData","glBufferSubData","glClear","glClearColor","glCompileShader","glCreateProgram","glCreateShader","glDeleteFramebuffers","glDeleteShader","glDeleteTextures","glDeleteVertexArraysOES","glDetachShader","glDisable","glDrawElements","glEnable","glEnableVertexAttribArray","glFramebufferTexture2D","glGenBuffers","glGenFramebuffers","glGenTextures","glGenVertexArraysOES","glGetAttribLocation","glGetIntegerv","glGetProgramInfoLog","glGetProgramiv","glGetShaderInfoLog","glGetShaderiv","glGetUniformLocation","glIsEnabled","glIsProgram","glLinkProgram","glReadBuffer","glReadPixels","glScissor","glShaderSource","glTexImage2D","glTexParameteri","glUniform1i","glUniformMatrix4fv","glUseProgram","glVertexAttribPointer","glViewport","glfwCreateStandardCursor","glfwCreateWindow","glfwGetClipboardString","glfwGetCursorPos","glfwGetFramebufferSize","glfwGetInputMode","glfwGetJoystickAxes","glfwGetJoystickButtons","glfwGetKey","glfwGetTime","glfwGetWindowSize","glfwInit","glfwMakeContextCurrent","glfwPollEvents","glfwSetCharCallback","glfwSetClipboardString","glfwSetCursor","glfwSetCursorEnterCallback","glfwSetCursorPos","glfwSetCursorPosCallback","glfwSetErrorCallback","glfwSetInputMode","glfwSetKeyCallback","glfwSetMonitorCallback","glfwSetMouseButtonCallback","glfwSetScrollCallback","glfwSetWindowFocusCallback","glfwSetWindowSize","glfwTerminate","glfwWindowHint","$exitJS","$handleException","$stringToUTF8OnStack","$getWasmTableEntry","$FS","$ccall","$HEAPU8","$FS_createPath","$FS_createDataFile","$FS_preloadFile","$FS_unlink","$FS_createLazyFile","$FS_createDevice","$addRunDependency","$removeRunDependency"],"INCLUDE_FULL_LIBRARY":false,"MAIN_MODULE":0,"SIDE_MODULE":0,"RUNTIME_LINKED_LIBS":[],"BUILD_AS_WORKER":false,"PROXY_TO_PTHREAD":false,"LINKABLE":false,"STRICT":false,"IGNORE_MISSING_MAIN":true,"STRICT_JS":false,"WARN_ON_UNDEFINED_SYMBOLS":true,"ERROR_ON_UNDEFINED_SYMBOLS":true,"SMALL_XHR_CHUNKS":false,"MODULARIZE":false,"EXPORT_ES6":false,"EXPORT_NAME":"Module","DYNAMIC_EXECUTION":1,"BOOTSTRAPPING_STRUCT_INFO":false,"EMSCRIPTEN_TRACING":false,"USE_GLFW":3,"WASM":1,"STANDALONE_WASM":false,"BINARYEN_IGNORE_IMPLICIT_TRAPS":false,"BINARYEN_EXTRA_PASSES":"","WASM_ASYNC_COMPILATION":true,"DYNCALLS":false,"WASM_BIGINT":true,"EMIT_PRODUCERS_SECTION":false,"EMIT_EMSCRIPTEN_LICENSE":false,"LEGALIZE_JS_FFI":0,"USE_SDL":0,"USE_SDL_GFX":0,"USE_SDL_IMAGE":1,"USE_SDL_TTF":1,"USE_SDL_NET":1,"USE_ICU":false,"USE_ZLIB":false,"USE_BZIP2":false,"USE_GIFLIB":false,"USE_LIBJPEG":false,"USE_LIBPNG":false,"USE_REGAL":false,"USE_BOOST_HEADERS":false,"USE_BULLET":false,"USE_VORBIS":false,"USE_OGG":false,"USE_MPG123":false,"USE_FREETYPE":false,"USE_SDL_MIXER":1,"USE_HARFBUZZ":false,"USE_COCOS2D":0,"USE_MODPLUG":false,"SDL2_IMAGE_FORMATS":[],"SDL2_MIXER_FORMATS":["ogg"],"USE_SQLITE3":false,"SHARED_MEMORY":false,"WASM_WORKERS":0,"AUDIO_WORKLET":0,"AUDIO_WORKLET_SUPPORT_AUDIO_PARAMS":true,"WEBAUDIO_DEBUG":0,"PTHREAD_POOL_SIZE":0,"PTHREAD_POOL_SIZE_STRICT":1,"PTHREAD_POOL_DELAY_LOAD":false,"DEFAULT_PTHREAD_STACK_SIZE":0,"PTHREADS_PROFILING":false,"ALLOW_BLOCKING_ON_MAIN_THREAD":true,"PTHREADS_DEBUG":false,"EVAL_CTORS":0,"TEXTDECODER":1,"EMBIND_STD_STRING_IS_UTF8":true,"EMBIND_AOT":false,"OFFSCREENCANVAS_SUPPORT":false,"OFFSCREENCANVASES_TO_PTHREAD":"#canvas","OFFSCREEN_FRAMEBUFFER":false,"FETCH_SUPPORT_INDEXEDDB":true,"FETCH_DEBUG":false,"FETCH":false,"FETCH_STREAMING":0,"WASMFS":false,"SINGLE_FILE":false,"SINGLE_FILE_BINARY_ENCODE":true,"AUTO_JS_LIBRARIES":true,"AUTO_NATIVE_LIBRARIES":true,"MIN_FIREFOX_VERSION":79,"MIN_SAFARI_VERSION":150000,"MIN_CHROME_VERSION":85,"MIN_NODE_VERSION":180300,"MINIMAL_RUNTIME":0,"MINIMAL_RUNTIME_STREAMING_WASM_COMPILATION":false,"MINIMAL_RUNTIME_STREAMING_WASM_INSTANTIATION":false,"SUPPORT_LONGJMP":"emscripten","DISABLE_DEPRECATED_FIND_EVENT_TARGET_BEHAVIOR":true,"HTML5_SUPPORT_DEFERRING_USER_SENSITIVE_REQUESTS":true,"MINIFY_HTML":true,"ASAN_SHADOW_SIZE":-1,"SOURCE_MAP_PREFIXES":[],"DEFAULT_TO_CXX":true,"PRINTF_LONG_DOUBLE":false,"SEPARATE_DWARF_URL":"","ERROR_ON_WASM_CHANGES_AFTER_LINK":false,"ABORT_ON_WASM_EXCEPTIONS":false,"PURE_WASI":false,"IMPORTED_MEMORY":false,"SPLIT_MODULE":false,"AUTOLOAD_DYLIBS":true,"ALLOW_UNIMPLEMENTED_SYSCALLS":true,"TRUSTED_TYPES":false,"POLYFILL":true,"RUNTIME_DEBUG":0,"LEGACY_RUNTIME":false,"SIGNATURE_CONVERSIONS":[],"SOURCE_PHASE_IMPORTS":false,"WASM_ESM_INTEGRATION":false,"JS_BASE64_API":false,"GROWABLE_ARRAYBUFFERS":false,"CROSS_ORIGIN":false,"FAKE_DYLIBS":true,"EXECUTABLE":false,"BINARYEN":1,"TOTAL_STACK":65536,"BINARYEN_ASYNC_COMPILATION":true,"UNALIGNED_MEMORY":0,"FORCE_ALIGNED_MEMORY":0,"PGO":0,"QUANTUM_SIZE":4,"FUNCTION_POINTER_ALIGNMENT":2,"RESERVED_FUNCTION_POINTERS":false,"BUILD_AS_SHARED_LIB":0,"SAFE_SPLIT_MEMORY":0,"SPLIT_MEMORY":0,"BINARYEN_METHOD":"native-wasm","BINARYEN_TRAP_MODE":-1,"PRECISE_I64_MATH":1,"MEMFS_APPEND_TO_TYPED_ARRAYS":1,"ERROR_ON_MISSING_LIBRARIES":1,"EMITTING_JS":1,"SKIP_STACK_IN_SMALL":0,"SAFE_STACK":0,"MEMORY_GROWTH_STEP":-1,"ELIMINATE_DUPLICATE_FUNCTIONS":0,"ELIMINATE_DUPLICATE_FUNCTIONS_DUMP_EQUIVALENT_FUNCTIONS":0,"ELIMINATE_DUPLICATE_FUNCTIONS_PASSES":5,"WASM_OBJECT_FILES":1,"TOTAL_MEMORY":-1,"WASM_MEM_MAX":2147483648,"BINARYEN_MEM_MAX":2147483648,"BINARYEN_PASSES":"","SWAPPABLE_ASM_MODULE":0,"ASM_JS":1,"FINALIZE_ASM_JS":0,"ASYNCIFY_WHITELIST":[],"ASYNCIFY_BLACKLIST":[],"EXCEPTION_CATCHING_WHITELIST":[],"SEPARATE_ASM":0,"SEPARATE_ASM_MODULE_NAME":"","FAST_UNROLLED_MEMCPY_AND_MEMSET":0,"DOUBLE_MODE":0,"PRECISE_F32":0,"ALIASING_FUNCTION_POINTERS":0,"AGGRESSIVE_VARIABLE_ELIMINATION":0,"SIMPLIFY_IFS":1,"DEAD_FUNCTIONS":[],"WASM_BACKEND":-1,"EXPORT_BINDINGS":0,"RUNNING_JS_OPTS":0,"EXPORT_FUNCTION_TABLES":0,"BINARYEN_SCRIPTS":"","WARN_UNALIGNED":0,"ASM_PRIMITIVE_VARS":[],"WORKAROUND_IOS_9_RIGHT_SHIFT_BUG":0,"RUNTIME_FUNCS_TO_IMPORT":[],"LIBRARY_DEPS_TO_AUTOEXPORT":[],"EMIT_EMSCRIPTEN_METADATA":0,"SHELL_FILE":"","LLD_REPORT_UNDEFINED":1,"MEM_INIT_METHOD":0,"USE_PTHREADS":0,"USES_DYNAMIC_ALLOC":1,"REVERSE_DEPS":"auto","RUNTIME_LOGGING":0,"MIN_EDGE_VERSION":2147483647,"MIN_IE_VERSION":2147483647,"WORKAROUND_OLD_WEBGL_UNIFORM_UPLOAD_IGNORED_OFFSET_BUG":0,"AUTO_ARCHIVE_INDEXES":0,"USE_ES6_IMPORT_META":1,"EXTRA_EXPORTED_RUNTIME_METHODS":[],"SUPPORT_ERRNO":0,"DEMANGLE_SUPPORT":0,"MAYBE_WASM2JS":0,"HEADLESS":0,"USE_OFFSET_COVERTER":0,"ASYNCIFY_LAZY_LOAD_CODE":0,"USE_WEBGPU":0,"PROXY_TO_WORKER":0,"NODEJS_CATCH_EXIT":0,"NODEJS_CATCH_REJECTION":0,"POLYFILL_OLD_MATH_FUNCTIONS":0,"RELOCATABLE":0,"WASM_JS_TYPES":0,"DETERMINISTIC":0,"EMSCRIPTEN_VERSION":"5.0.7-git"} ;
+var compilerSettings = {"ASSERTIONS":1,"STACK_OVERFLOW_CHECK":1,"CHECK_NULL_WRITES":true,"VERBOSE":false,"INVOKE_RUN":true,"EXIT_RUNTIME":false,"STACK_SIZE":65536,"MALLOC":"dlmalloc","ABORTING_MALLOC":0,"INITIAL_HEAP":16777216,"INITIAL_MEMORY":-1,"MAXIMUM_MEMORY":2147483648,"ALLOW_MEMORY_GROWTH":1,"MEMORY_GROWTH_GEOMETRIC_STEP":0.2,"MEMORY_GROWTH_GEOMETRIC_CAP":100663296,"MEMORY_GROWTH_LINEAR_STEP":-1,"MEMORY64":0,"INITIAL_TABLE":-1,"ALLOW_TABLE_GROWTH":false,"GLOBAL_BASE":1024,"TABLE_BASE":1,"USE_CLOSURE_COMPILER":false,"CLOSURE_WARNINGS":"quiet","IGNORE_CLOSURE_COMPILER_ERRORS":false,"DECLARE_ASM_MODULE_EXPORTS":true,"INLINING_LIMIT":false,"SUPPORT_BIG_ENDIAN":false,"SAFE_HEAP":0,"SAFE_HEAP_LOG":false,"EMULATE_FUNCTION_POINTER_CASTS":false,"EXCEPTION_DEBUG":false,"LIBRARY_DEBUG":false,"SYSCALL_DEBUG":false,"SOCKET_DEBUG":false,"DYLINK_DEBUG":0,"FS_DEBUG":false,"SOCKET_WEBRTC":false,"WEBSOCKET_URL":"ws://","PROXY_POSIX_SOCKETS":false,"WEBSOCKET_SUBPROTOCOL":"binary","OPENAL_DEBUG":false,"WEBSOCKET_DEBUG":false,"GL_ASSERTIONS":false,"TRACE_WEBGL_CALLS":false,"GL_DEBUG":false,"GL_TESTING":false,"GL_MAX_TEMP_BUFFER_SIZE":2097152,"GL_UNSAFE_OPTS":true,"FULL_ES2":1,"GL_EMULATE_GLES_VERSION_STRING_FORMAT":true,"GL_EXTENSIONS_IN_PREFIXED_FORMAT":true,"GL_SUPPORT_AUTOMATIC_ENABLE_EXTENSIONS":true,"GL_SUPPORT_SIMPLE_ENABLE_EXTENSIONS":true,"GL_TRACK_ERRORS":true,"GL_SUPPORT_EXPLICIT_SWAP_CONTROL":false,"GL_POOL_TEMP_BUFFERS":true,"GL_EXPLICIT_UNIFORM_LOCATION":false,"GL_EXPLICIT_UNIFORM_BINDING":false,"USE_WEBGL2":1,"MIN_WEBGL_VERSION":1,"MAX_WEBGL_VERSION":2,"WEBGL2_BACKWARDS_COMPATIBILITY_EMULATION":false,"FULL_ES3":1,"LEGACY_GL_EMULATION":false,"GL_FFP_ONLY":false,"GL_PREINITIALIZED_CONTEXT":false,"STB_IMAGE":false,"GL_DISABLE_HALF_FLOAT_EXTENSION_IF_BROKEN":false,"GL_WORKAROUND_SAFARI_GETCONTEXT_BUG":true,"GL_ENABLE_GET_PROC_ADDRESS":true,"JS_MATH":false,"LEGACY_VM_SUPPORT":false,"ENVIRONMENT":["web","webview","worker","node"],"LZ4":false,"DISABLE_EXCEPTION_CATCHING":0,"EXCEPTION_CATCHING_ALLOWED":[],"DISABLE_EXCEPTION_THROWING":false,"EXPORT_EXCEPTION_HANDLING_HELPERS":false,"EXCEPTION_STACK_TRACES":1,"WASM_LEGACY_EXCEPTIONS":true,"ASYNCIFY":0,"ASYNCIFY_IMPORTS":[],"ASYNCIFY_IGNORE_INDIRECT":false,"ASYNCIFY_STACK_SIZE":4096,"ASYNCIFY_REMOVE":[],"ASYNCIFY_ADD":[],"ASYNCIFY_PROPAGATE_ADD":true,"ASYNCIFY_ONLY":[],"ASYNCIFY_ADVISE":false,"ASYNCIFY_DEBUG":0,"ASYNCIFY_EXPORTS":[],"JSPI":0,"JSPI_EXPORTS":[],"JSPI_IMPORTS":[],"EXPORTED_RUNTIME_METHODS":{},"INCOMING_MODULE_JS_API":{},"CASE_INSENSITIVE_FS":false,"FILESYSTEM":true,"FORCE_FILESYSTEM":1,"NODERAWFS":false,"NODE_HOST_ENV":false,"NODE_CODE_CACHING":false,"EXPORTED_FUNCTIONS":{},"EXPORT_ALL":false,"EXPORT_KEEPALIVE":true,"RETAIN_COMPILER_SETTINGS":1,"DEFAULT_LIBRARY_FUNCS_TO_INCLUDE":["$ExitStatus","$HEAP16","$HEAP32","$HEAP64","$HEAP8","$HEAPF32","$HEAPF64","$HEAPU16","$HEAPU32","$HEAPU64","$HEAPU8","$addOnPostRun","$addOnPreRun","$addRunDependency","$callRuntimeCallbacks","$getValue","$noExitRuntime","$ptrToString","$removeRunDependency","$setValue","$stackRestore","$stackSave","$warnOnce","$wasmMemory","__assert_fail","__cxa_begin_catch","__cxa_end_catch","__cxa_find_matching_catch_2","__cxa_find_matching_catch_3","__cxa_rethrow","__cxa_throw","__cxa_uncaught_exceptions","__resumeException","__syscall_fcntl64","__syscall_ftruncate64","__syscall_ioctl","__syscall_openat","_abort_js","_emscripten_log_formatted","_emscripten_system","_localtime_js","_mktime_js","_tzset_js","emscripten_date_now","emscripten_resize_heap","emscripten_set_main_loop","emscripten_set_wheel_callback_on_thread","environ_get","environ_sizes_get","fd_close","fd_read","fd_seek","fd_write","glActiveTexture","glAttachShader","glBindBuffer","glBindFramebuffer","glBindTexture","glBindVertexArrayOES","glBlendEquation","glBlendEquationSeparate","glBlendFuncSeparate","glBufferData","glBufferSubData","glClear","glClearColor","glCompileShader","glCreateProgram","glCreateShader","glDeleteFramebuffers","glDeleteShader","glDeleteTextures","glDeleteVertexArraysOES","glDetachShader","glDisable","glDrawElements","glEnable","glEnableVertexAttribArray","glFramebufferTexture2D","glGenBuffers","glGenFramebuffers","glGenTextures","glGenVertexArraysOES","glGetAttribLocation","glGetIntegerv","glGetProgramInfoLog","glGetProgramiv","glGetShaderInfoLog","glGetShaderiv","glGetUniformLocation","glIsEnabled","glIsProgram","glLinkProgram","glReadBuffer","glReadPixels","glScissor","glShaderSource","glTexImage2D","glTexParameteri","glUniform1i","glUniformMatrix4fv","glUseProgram","glVertexAttribPointer","glViewport","glfwCreateStandardCursor","glfwCreateWindow","glfwGetClipboardString","glfwGetCursorPos","glfwGetFramebufferSize","glfwGetInputMode","glfwGetJoystickAxes","glfwGetJoystickButtons","glfwGetKey","glfwGetTime","glfwGetWindowSize","glfwInit","glfwMakeContextCurrent","glfwPollEvents","glfwSetCharCallback","glfwSetClipboardString","glfwSetCursor","glfwSetCursorEnterCallback","glfwSetCursorPos","glfwSetCursorPosCallback","glfwSetErrorCallback","glfwSetInputMode","glfwSetKeyCallback","glfwSetMonitorCallback","glfwSetMouseButtonCallback","glfwSetScrollCallback","glfwSetWindowFocusCallback","glfwSetWindowSize","glfwTerminate","glfwWindowHint","$exitJS","$handleException","$stringToUTF8OnStack","$getWasmTableEntry","$FS","$ccall","$HEAPU8","$FS_createPath","$FS_createDataFile","$FS_preloadFile","$FS_unlink","$FS_createLazyFile","$FS_createDevice","$addRunDependency","$removeRunDependency"],"INCLUDE_FULL_LIBRARY":false,"MAIN_MODULE":0,"SIDE_MODULE":0,"RUNTIME_LINKED_LIBS":[],"BUILD_AS_WORKER":false,"PROXY_TO_PTHREAD":false,"LINKABLE":false,"STRICT":false,"IGNORE_MISSING_MAIN":true,"STRICT_JS":false,"WARN_ON_UNDEFINED_SYMBOLS":true,"ERROR_ON_UNDEFINED_SYMBOLS":true,"SMALL_XHR_CHUNKS":false,"MODULARIZE":false,"EXPORT_ES6":false,"EXPORT_NAME":"Module","DYNAMIC_EXECUTION":1,"BOOTSTRAPPING_STRUCT_INFO":false,"EMSCRIPTEN_TRACING":false,"USE_GLFW":3,"WASM":1,"STANDALONE_WASM":false,"BINARYEN_IGNORE_IMPLICIT_TRAPS":false,"BINARYEN_EXTRA_PASSES":"","WASM_ASYNC_COMPILATION":true,"DYNCALLS":false,"WASM_BIGINT":true,"EMIT_PRODUCERS_SECTION":false,"EMIT_EMSCRIPTEN_LICENSE":false,"LEGALIZE_JS_FFI":0,"USE_SDL":0,"USE_SDL_GFX":0,"USE_SDL_IMAGE":1,"USE_SDL_TTF":1,"USE_SDL_NET":1,"USE_ICU":false,"USE_ZLIB":false,"USE_BZIP2":false,"USE_GIFLIB":false,"USE_LIBJPEG":false,"USE_LIBPNG":false,"USE_REGAL":false,"USE_BOOST_HEADERS":false,"USE_BULLET":false,"USE_VORBIS":false,"USE_OGG":false,"USE_MPG123":false,"USE_FREETYPE":false,"USE_SDL_MIXER":1,"USE_HARFBUZZ":false,"USE_COCOS2D":0,"USE_MODPLUG":false,"SDL2_IMAGE_FORMATS":[],"SDL2_MIXER_FORMATS":["ogg"],"USE_SQLITE3":false,"SHARED_MEMORY":false,"WASM_WORKERS":0,"AUDIO_WORKLET":0,"AUDIO_WORKLET_SUPPORT_AUDIO_PARAMS":true,"WEBAUDIO_DEBUG":0,"PTHREAD_POOL_SIZE":0,"PTHREAD_POOL_SIZE_STRICT":1,"PTHREAD_POOL_DELAY_LOAD":false,"DEFAULT_PTHREAD_STACK_SIZE":0,"PTHREADS_PROFILING":false,"ALLOW_BLOCKING_ON_MAIN_THREAD":true,"PTHREADS_DEBUG":false,"EVAL_CTORS":0,"TEXTDECODER":1,"EMBIND_STD_STRING_IS_UTF8":true,"EMBIND_AOT":false,"OFFSCREENCANVAS_SUPPORT":false,"OFFSCREENCANVASES_TO_PTHREAD":"#canvas","OFFSCREEN_FRAMEBUFFER":false,"FETCH_SUPPORT_INDEXEDDB":true,"FETCH_DEBUG":false,"FETCH":false,"FETCH_STREAMING":0,"WASMFS":false,"SINGLE_FILE":false,"SINGLE_FILE_BINARY_ENCODE":true,"AUTO_JS_LIBRARIES":true,"AUTO_NATIVE_LIBRARIES":true,"MIN_FIREFOX_VERSION":79,"MIN_SAFARI_VERSION":150000,"MIN_CHROME_VERSION":85,"MIN_NODE_VERSION":180300,"MINIMAL_RUNTIME":0,"MINIMAL_RUNTIME_STREAMING_WASM_COMPILATION":false,"MINIMAL_RUNTIME_STREAMING_WASM_INSTANTIATION":false,"SUPPORT_LONGJMP":"emscripten","DISABLE_DEPRECATED_FIND_EVENT_TARGET_BEHAVIOR":true,"HTML5_SUPPORT_DEFERRING_USER_SENSITIVE_REQUESTS":true,"MINIFY_HTML":true,"ASAN_SHADOW_SIZE":-1,"SOURCE_MAP_PREFIXES":[],"DEFAULT_TO_CXX":true,"PRINTF_LONG_DOUBLE":false,"SEPARATE_DWARF_URL":"","ERROR_ON_WASM_CHANGES_AFTER_LINK":false,"ABORT_ON_WASM_EXCEPTIONS":false,"PURE_WASI":false,"IMPORTED_MEMORY":false,"SPLIT_MODULE":false,"AUTOLOAD_DYLIBS":true,"ALLOW_UNIMPLEMENTED_SYSCALLS":true,"TRUSTED_TYPES":false,"POLYFILL":true,"RUNTIME_DEBUG":0,"LEGACY_RUNTIME":false,"SIGNATURE_CONVERSIONS":[],"SOURCE_PHASE_IMPORTS":false,"WASM_ESM_INTEGRATION":false,"JS_BASE64_API":false,"GROWABLE_ARRAYBUFFERS":false,"CROSS_ORIGIN":false,"FAKE_DYLIBS":false,"EXECUTABLE":false,"BINARYEN":1,"TOTAL_STACK":65536,"BINARYEN_ASYNC_COMPILATION":true,"UNALIGNED_MEMORY":0,"FORCE_ALIGNED_MEMORY":0,"PGO":0,"QUANTUM_SIZE":4,"FUNCTION_POINTER_ALIGNMENT":2,"RESERVED_FUNCTION_POINTERS":false,"BUILD_AS_SHARED_LIB":0,"SAFE_SPLIT_MEMORY":0,"SPLIT_MEMORY":0,"BINARYEN_METHOD":"native-wasm","BINARYEN_TRAP_MODE":-1,"PRECISE_I64_MATH":1,"MEMFS_APPEND_TO_TYPED_ARRAYS":1,"ERROR_ON_MISSING_LIBRARIES":1,"EMITTING_JS":1,"SKIP_STACK_IN_SMALL":0,"SAFE_STACK":0,"MEMORY_GROWTH_STEP":-1,"ELIMINATE_DUPLICATE_FUNCTIONS":0,"ELIMINATE_DUPLICATE_FUNCTIONS_DUMP_EQUIVALENT_FUNCTIONS":0,"ELIMINATE_DUPLICATE_FUNCTIONS_PASSES":5,"WASM_OBJECT_FILES":1,"TOTAL_MEMORY":-1,"WASM_MEM_MAX":2147483648,"BINARYEN_MEM_MAX":2147483648,"BINARYEN_PASSES":"","SWAPPABLE_ASM_MODULE":0,"ASM_JS":1,"FINALIZE_ASM_JS":0,"ASYNCIFY_WHITELIST":[],"ASYNCIFY_BLACKLIST":[],"EXCEPTION_CATCHING_WHITELIST":[],"SEPARATE_ASM":0,"SEPARATE_ASM_MODULE_NAME":"","FAST_UNROLLED_MEMCPY_AND_MEMSET":0,"DOUBLE_MODE":0,"PRECISE_F32":0,"ALIASING_FUNCTION_POINTERS":0,"AGGRESSIVE_VARIABLE_ELIMINATION":0,"SIMPLIFY_IFS":1,"DEAD_FUNCTIONS":[],"WASM_BACKEND":-1,"EXPORT_BINDINGS":0,"RUNNING_JS_OPTS":0,"EXPORT_FUNCTION_TABLES":0,"BINARYEN_SCRIPTS":"","WARN_UNALIGNED":0,"ASM_PRIMITIVE_VARS":[],"WORKAROUND_IOS_9_RIGHT_SHIFT_BUG":0,"RUNTIME_FUNCS_TO_IMPORT":[],"LIBRARY_DEPS_TO_AUTOEXPORT":[],"EMIT_EMSCRIPTEN_METADATA":0,"SHELL_FILE":"","LLD_REPORT_UNDEFINED":1,"MEM_INIT_METHOD":0,"USE_PTHREADS":0,"USES_DYNAMIC_ALLOC":1,"REVERSE_DEPS":"auto","RUNTIME_LOGGING":0,"MIN_EDGE_VERSION":2147483647,"MIN_IE_VERSION":2147483647,"WORKAROUND_OLD_WEBGL_UNIFORM_UPLOAD_IGNORED_OFFSET_BUG":0,"AUTO_ARCHIVE_INDEXES":0,"USE_ES6_IMPORT_META":1,"EXTRA_EXPORTED_RUNTIME_METHODS":[],"SUPPORT_ERRNO":0,"DEMANGLE_SUPPORT":0,"MAYBE_WASM2JS":0,"HEADLESS":0,"USE_OFFSET_COVERTER":0,"ASYNCIFY_LAZY_LOAD_CODE":0,"USE_WEBGPU":0,"PROXY_TO_WORKER":0,"NODEJS_CATCH_EXIT":0,"NODEJS_CATCH_REJECTION":0,"POLYFILL_OLD_MATH_FUNCTIONS":0,"RELOCATABLE":0,"WASM_JS_TYPES":0,"DETERMINISTIC":0,"EMSCRIPTEN_VERSION":"6.0.0-git"} ;
 
 function getCompilerSetting(name) {
   if (!(name in compilerSettings)) return 'invalid compiler setting: ' + name;
@@ -3431,8 +3431,8 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
         return stream.stream_ops.ioctl(stream, cmd, arg);
       },
   readFile(path, opts = {}) {
-        opts.flags = opts.flags || 0;
-        opts.encoding = opts.encoding || 'binary';
+        opts.flags = opts.flags ?? 0;
+        opts.encoding = opts.encoding ?? 'binary';
         if (opts.encoding !== 'utf8' && opts.encoding !== 'binary') {
           abort(`Invalid encoding type "${opts.encoding}"`);
         }
@@ -3448,7 +3448,7 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
         return buf;
       },
   writeFile(path, data, opts = {}) {
-        opts.flags = opts.flags || 577;
+        opts.flags = opts.flags ?? 577;
         var stream = FS.open(path, opts.flags, opts.mode);
         data = FS_fileDataToTypedArray(data);
         FS.write(stream, data, 0, data.byteLength, undefined, opts.canOwn);
@@ -3785,8 +3785,8 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
   
             // Function to get a range from the remote URL.
             var doXHR = (from, to) => {
-              if (from > to) abort("invalid range (" + from + ", " + to + ") or no bytes requested!");
-              if (to > datalength-1) abort("only " + datalength + " bytes available! programmer error!");
+              if (from > to) abort(`invalid range (${from}, ${to}) or no bytes requested!`);
+              if (to > datalength-1) abort(`only ${datalength} bytes available! programmer error!`);
   
               // TODO: Use mozResponseArrayBuffer, responseStream, etc. if available.
               var xhr = new XMLHttpRequest();
@@ -3804,7 +3804,7 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
               if (xhr.response !== undefined) {
                 return new Uint8Array(/** @type{Array<number>} */(xhr.response || []));
               }
-              return intArrayFromString(xhr.responseText || '', true);
+              return intArrayFromString(xhr.responseText ?? '', true);
             };
             var lazyArray = this;
             lazyArray.setDataGetter((chunkNum) => {
@@ -4475,7 +4475,7 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
       2147483648;
   
   var alignMemory = (size, alignment) => {
-      assert(alignment, "alignment argument is required");
+      assert(alignment, 'alignment argument is required');
       return Math.ceil(size / alignment) * alignment;
     };
   
@@ -4643,7 +4643,10 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
       } else {
         assert(mode == 2);
         if (!MainLoop.setImmediate) {
-          if (globalThis.setImmediate) {
+          if (globalThis.scheduler) {
+            // Some modern browsers implement scheduler.postTask, but not all.
+            MainLoop.setImmediate = scheduler.postTask.bind(scheduler);
+          } else if (globalThis.setImmediate) {
             MainLoop.setImmediate = setImmediate;
           } else {
             // Emulate setImmediate. (note: not a complete polyfill, we don't emulate clearImmediate() to keep code size to minimum, since not needed)
@@ -4651,9 +4654,7 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
             var emscriptenMainLoopMessageId = 'setimmediate';
             /** @param {Event} event */
             var MainLoop_setImmediate_messageHandler = (event) => {
-              // When called in current thread or Worker, the main loop ID is structured slightly different to accommodate for --proxy-to-worker runtime listening to Worker events,
-              // so check for both cases.
-              if (event.data === emscriptenMainLoopMessageId || event.data.target === emscriptenMainLoopMessageId) {
+              if (event.data === emscriptenMainLoopMessageId) {
                 event.stopPropagation();
                 setImmediates.shift()();
               }
@@ -4662,10 +4663,12 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
             MainLoop.setImmediate = /** @type{function(function(): ?, ...?): number} */((func) => {
               setImmediates.push(func);
               if (ENVIRONMENT_IS_WORKER) {
-                Module['setImmediates'] ??= [];
-                Module['setImmediates'].push(func);
-                postMessage({target: emscriptenMainLoopMessageId}); // In --proxy-to-worker, route the message via proxyClient.js
-              } else postMessage(emscriptenMainLoopMessageId, "*"); // On the main thread, can just send the message to itself.
+                // The postMessge API in a Worker, sends message to the main
+                // thread and does not support the `targetOrigin` (*) argument.
+                postMessage(emscriptenMainLoopMessageId);
+              } else {
+                postMessage(emscriptenMainLoopMessageId, '*');
+              }
             });
           }
         }
@@ -4910,12 +4913,12 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
         JSEvents.deferredCalls = JSEvents.deferredCalls.filter((call) => call.targetFunction != targetFunction);
       },
   canPerformEventHandlerRequests() {
+        // Browsers that support navigator.userActivation.isActive: https://developer.mozilla.org/en-US/docs/Web/API/UserActivation/isActive
         if (navigator.userActivation) {
           // Verify against transient activation status from UserActivation API
           // whether it is possible to perform a request here without needing to defer. See
           // https://developer.mozilla.org/en-US/docs/Web/Security/User_activation#transient_activation
           // and https://caniuse.com/mdn-api_useractivation
-          // At the time of writing, Firefox does not support this API: https://bugzil.la/1791079
           return navigator.userActivation.isActive;
         }
   
@@ -4996,10 +4999,9 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
         return success ? 0 : -5;
       },
   getNodeNameForTarget(target) {
-        if (!target) return '';
         if (target == window) return '#window';
         if (target == screen) return '#screen';
-        return target?.nodeName || '';
+        return target?.nodeName ?? '';
       },
   fullscreenEnabled() {
         return document.fullscreenEnabled
@@ -5093,7 +5095,7 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
   var ENV = {
   };
   
-  var getExecutableName = () => thisProgram || './this.program';
+  var getExecutableName = () => thisProgram;
   var getEnvStrings = () => {
       if (!getEnvStrings.strings) {
         // Default values.
@@ -5359,12 +5361,20 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
         'WEBGL_polygon_mode'
       ];
       // .getSupportedExtensions() can return null if context is lost, so coerce to empty array.
-      return (ctx.getSupportedExtensions() || []).filter(ext => supportedExtensions.includes(ext));
+      return ctx.getSupportedExtensions()?.filter(ext => supportedExtensions.includes(ext)) ?? [];
     };
   
   var registerPreMainLoop = (f) => {
       // Does nothing unless $MainLoop is included/used.
       typeof MainLoop != 'undefined' && MainLoop.preMainLoop.push(f);
+    };
+  
+  var webglBufferSubData = (target, offset, size, data, src = HEAPU8) => {
+      if (GL.currentContext.version >= 2) {
+        size && GLctx.bufferSubData(target, offset, src, data, size);
+        return;
+      }
+      GLctx.bufferSubData(target, offset, src.subarray(data, data + size));
     };
   
   
@@ -5554,9 +5564,7 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
           var size = GL.calcBufLength(cb.size, cb.type, cb.stride, count);
           var buf = GL.getTempVertexBuffer(size);
           GLctx.bindBuffer(0x8892 /*GL_ARRAY_BUFFER*/, buf);
-          GLctx.bufferSubData(0x8892 /*GL_ARRAY_BUFFER*/,
-                                   0,
-                                   HEAPU8.subarray(cb.ptr, cb.ptr + size));
+          webglBufferSubData(0x8892 /*GL_ARRAY_BUFFER*/, 0, size, cb.ptr);
           cb.vertexAttribPointerAdaptor.call(GLctx, i, cb.size, cb.type, cb.normalized, cb.stride, 0);
         }
       },
@@ -5809,13 +5817,8 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
     };
   var _glBufferData = _emscripten_glBufferData;
 
-  var _emscripten_glBufferSubData = (target, offset, size, data) => {
-      if (GL.currentContext.version >= 2) {
-        size && GLctx.bufferSubData(target, offset, HEAPU8, data, size);
-        return;
-      }
-      GLctx.bufferSubData(target, offset, HEAPU8.subarray(data, data+size));
-    };
+  
+  var _emscripten_glBufferSubData = (target, offset, size, data) => webglBufferSubData(target, offset, size, data);
   var _glBufferSubData = _emscripten_glBufferSubData;
 
   var _emscripten_glClear = (x0) => GLctx.clear(x0);
@@ -5911,6 +5914,7 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
   var _emscripten_glDisable = (x0) => GLctx.disable(x0);
   var _glDisable = _emscripten_glDisable;
 
+  
   var _emscripten_glDrawElements = (mode, count, type, indices) => {
       var buf;
       var vertexes = 0;
@@ -5918,10 +5922,8 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
         var size = GL.calcBufLength(1, type, 0, count);
         buf = GL.getTempIndexBuffer(size);
         GLctx.bindBuffer(0x8893 /*GL_ELEMENT_ARRAY_BUFFER*/, buf);
-        GLctx.bufferSubData(0x8893 /*GL_ELEMENT_ARRAY_BUFFER*/,
-                            0,
-                            HEAPU8.subarray(indices, indices + size));
-        
+        webglBufferSubData(0x8893 /*GL_ELEMENT_ARRAY_BUFFER*/, 0, size, indices);
+  
         // Calculating vertex count if shader's attribute data is on client side
         if (count > 0) {
           for (var i = 0; i < GL.currentContext.maxVertexAttribs; ++i) {
@@ -6450,7 +6452,7 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
   var toTypedArrayIndex = (pointer, heap) =>
       pointer >>> (31 - Math.clz32(heap.BYTES_PER_ELEMENT));
   
-  var emscriptenWebGLGetTexPixelData = (type, format, width, height, pixels, internalFormat) => {
+  var emscriptenWebGLGetTexPixelData = (type, format, width, height, pixels) => {
       var heap = heapObjectForWebGLType(type);
       var sizePerPixel = colorChannelsInGlTextureFormat(format) * heap.BYTES_PER_ELEMENT;
       var bytes = computeUnpackAlignedImageSize(width, height, sizePerPixel);
@@ -6470,7 +6472,7 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
         GLctx.readPixels(x, y, width, height, format, type, heap, target);
         return;
       }
-      var pixelData = emscriptenWebGLGetTexPixelData(type, format, width, height, pixels, format);
+      var pixelData = emscriptenWebGLGetTexPixelData(type, format, width, height, pixels);
       if (!pixelData) {
         GL.recordError(0x500/*GL_INVALID_ENUM*/);
         return;
@@ -6505,7 +6507,7 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
           return;
         }
       }
-      var pixelData = pixels ? emscriptenWebGLGetTexPixelData(type, format, width, height, pixels, internalFormat) : null;
+      var pixelData = pixels ? emscriptenWebGLGetTexPixelData(type, format, width, height, pixels) : null;
       GLctx.texImage2D(target, level, internalFormat, width, height, border, format, type, pixelData);
     };
   var _glTexImage2D = _emscripten_glTexImage2D;
@@ -6513,23 +6515,28 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
   var _emscripten_glTexParameteri = (x0, x1, x2) => GLctx.texParameteri(x0, x1, x2);
   var _glTexParameteri = _emscripten_glTexParameteri;
 
-  var webglGetUniformLocation = (location) => {
-      var p = GLctx.currentProgram;
   
-      if (p) {
-        var webglLoc = p.uniformLocsById[location];
-        // p.uniformLocsById[location] stores either an integer, or a
+  var webglGetProgramUniformLocation = (program, location) => {
+  
+      if (program) {
+        var webglLoc = program.uniformLocsById[location];
+        // program.uniformLocsById[location] stores either an integer, or a
         // WebGLUniformLocation.
         // If an integer, we have not yet bound the location, so do it now. The
         // integer value specifies the array index we should bind to.
         if (typeof webglLoc == 'number') {
-          p.uniformLocsById[location] = webglLoc = GLctx.getUniformLocation(p, p.uniformArrayNamesById[location] + (webglLoc > 0 ? `[${webglLoc}]` : ''));
+          program.uniformLocsById[location] = webglLoc = GLctx.getUniformLocation(program, program.uniformArrayNamesById[location] + (webglLoc > 0 ? `[${webglLoc}]` : ''));
         }
         // Else an already cached WebGLUniformLocation, return it.
         return webglLoc;
       } else {
         GL.recordError(0x502/*GL_INVALID_OPERATION*/);
       }
+    };
+  
+  var webglGetUniformLocation = (location) => {
+  
+      return webglGetProgramUniformLocation(GLctx.currentProgram, location);
     };
   
   var _emscripten_glUniform1i = (location, v0) => {
@@ -6599,7 +6606,7 @@ var stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {
         cb.stride = stride;
         cb.ptr = ptr;
         cb.clientside = true;
-        cb.vertexAttribPointerAdaptor = function(index, size, type, normalized, stride, ptr) {
+        cb.vertexAttribPointerAdaptor = /** @this {WebGLRenderingContext} */ function(index, size, type, normalized, stride, ptr) {
           this.vertexAttribPointer(index, size, type, normalized, stride, ptr);
         };
         return;
@@ -8631,7 +8638,7 @@ if (Module['wasmBinary']) wasmBinary = Module['wasmBinary'];
 
   checkIncomingModuleAPI();
 
-  if (Module['arguments']) arguments_ = Module['arguments'];
+  if (Module['arguments']) programArgs = Module['arguments'];
   if (Module['thisProgram']) thisProgram = Module['thisProgram'];
 
   // Assertions on removed incoming Module JS APIs.
@@ -8763,6 +8770,7 @@ if (Module['wasmBinary']) wasmBinary = Module['wasmBinary'];
   'registerPostMainLoop',
   'getPromise',
   'makePromise',
+  'addPromise',
   'idsToPromises',
   'makePromiseCallback',
   'incrementUncaughtExceptionCount',
@@ -9053,6 +9061,7 @@ missingLibrarySymbols.forEach(missingLibrarySymbol)
   'computeUnpackAlignedImageSize',
   'colorChannelsInGlTextureFormat',
   'emscriptenWebGLGetTexPixelData',
+  'webglGetProgramUniformLocation',
   'webglGetUniformLocation',
   'webglPrepareUniformLocationsBeforeFirstUse',
   'webglGetLeftBracePos',
@@ -9894,7 +9903,7 @@ function stackCheckInit() {
   writeStackCookie();
 }
 
-function run(args = arguments_) {
+function run(args = programArgs) {
 
   if (runDependencies > 0) {
     dependenciesFulfilled = run;
