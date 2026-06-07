@@ -363,6 +363,8 @@ Clone **recursively** this repository and just enter `make` in the command line.
 
 In order to only build a certain subproject, you can run `make` plus the subproject's name: `make usystem`, `make uloader`, `make umenu`, `make umanager`, `make uscreen`, `make udesigner`
 
+> Note that, depending on the state of [Atmosphere-libs](https://github.com/Atmosphere-NX/Atmosphere-libs), you may need master [libnx]() instead of the last devkitPro release. In that case, you may just clone the libnx repository and specify the directory in the build command as `make LIBNX=<cloned-libnx-path>/nx/`.
+
 ## Credits
 
 - SciresM for [Atmosphere-libs](https://github.com/Atmosphere-NX/Atmosphere-libs).
