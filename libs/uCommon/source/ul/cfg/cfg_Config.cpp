@@ -251,6 +251,9 @@ namespace ul::cfg {
         if(strcmp(sys_lang, "pt-BR") == 0) {
             _TRY_LOAD_LANG("pt");
         }
+        if((strcmp(sys_lang, "pt") == 0) || (strncmp(sys_lang, "pt-", 3) == 0)) {
+            _TRY_LOAD_LANG("pt-BR");
+        }
 
         lang = def;
     }

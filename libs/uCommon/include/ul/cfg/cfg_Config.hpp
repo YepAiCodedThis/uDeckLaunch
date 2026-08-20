@@ -354,7 +354,7 @@ namespace ul::cfg {
 
     inline std::string GetLanguageString(const util::JSON &lang, const util::JSON &def, const std::string &name) {
         auto str = lang.value(name, DefaultString);
-        if(str.empty()) {
+        if(str.empty() || str == DefaultString) {
             str = def.value(name, DefaultString);
         }
         return str;

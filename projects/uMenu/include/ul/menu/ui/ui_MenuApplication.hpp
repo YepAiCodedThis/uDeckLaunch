@@ -1,6 +1,9 @@
 
 #pragma once
-#include <ul/menu/ui/ui_MainMenuLayout.hpp>
+#include <ul/menu/ui/ui_Common.hpp>
+#include <ul/menu/ui/ui_QuickMenu.hpp>
+#include <ul/menu/ui/ui_DeckMainMenuLayout.hpp>
+#include <ul/menu/smi/sf/sf_PrivateService.hpp>
 #include <ul/menu/ui/ui_StartupMenuLayout.hpp>
 #include <ul/menu/ui/ui_ThemesMenuLayout.hpp>
 #include <ul/menu/ui/ui_SettingsMenuLayout.hpp>
@@ -31,7 +34,7 @@ namespace ul::menu::ui {
 
         private:
             smi::MenuStartMode start_mode;
-            MainMenuLayout::Ref main_menu_lyt;
+            DeckMainMenuLayout::Ref main_menu_lyt;
             StartupMenuLayout::Ref startup_menu_lyt;
             ThemesMenuLayout::Ref themes_menu_lyt;
             SettingsMenuLayout::Ref settings_menu_lyt;
@@ -67,6 +70,8 @@ namespace ul::menu::ui {
 
             void OnLoad() override;
 
+            void PrewarmMainMenu();
+
             inline void Initialize(const smi::MenuStartMode start_mode) {
                 this->start_mode = start_mode;
             }
@@ -97,6 +102,10 @@ namespace ul::menu::ui {
             }
 
             void LoadMenu(const MenuType type, const bool fade = true, MenuFadeCallback fade_cb = nullptr);
+
+            inline MenuType GetLoadedMenu() const {
+                return this->loaded_menu;
+            }
 
             inline void NotifyLaunchFailed() {
                 this->launch_failed = true;
@@ -186,7 +195,7 @@ namespace ul::menu::ui {
 
             inline void NotifyApplicationVerifyProgress(const u64 app_id, const float progress = NAN) {
                 if(this->loaded_menu == MenuType::Main) {
-                    this->GetLayout<MainMenuLayout>()->UpdateApplicationVerifyProgress(app_id, progress);
+                    this->GetLayout<DeckMainMenuLayout>()->UpdateApplicationVerifyProgress(app_id, progress);
                 }
             }
 
@@ -236,7 +245,7 @@ namespace ul::menu::ui {
             void LoadBgmSfxForCreatedMenus();
             void DisposeAllSfx();
 
-            inline MainMenuLayout::Ref &GetMainMenuLayout() {
+            inline DeckMainMenuLayout::Ref &GetMainMenuLayout() {
                 return this->main_menu_lyt;
             }
 

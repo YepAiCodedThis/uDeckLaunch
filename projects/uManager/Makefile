@@ -44,8 +44,8 @@ INCLUDES	:=	include
 DATA		:=	data
 ROMFS		:=	romfs
 
-APP_TITLE   := uManager
-APP_AUTHOR  := XorTroll
+APP_TITLE   := uDeckLaunch
+APP_AUTHOR  := uDeckLaunch
 
 APP_VERSION := $(VERSION)
 

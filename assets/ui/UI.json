@@ -1,0 +1,43 @@
+{
+    "suspended_app_final_alpha": 80,
+    "text_color": "#DCDEDFFF",
+    "toast_base_color": "#161B22FF",
+    "toast_text_color": "#DCDEDFFF",
+    "menu_focus_color": "#1A9FFFFF",
+    "menu_bg_color": "#161B22FF",
+    "dialog_title_color": "#DCDEDFFF",
+    "dialog_cnt_color": "#DCDEDFFF",
+    "dialog_opt_color": "#DCDEDFFF",
+    "dialog_color": "#161B22FF",
+    "dialog_over_color": "#1A9FFFFF",
+    "lockscreen_menu": {
+        "info_text": {
+            "h_align": "center",
+            "v_align": "center",
+            "font_size": "large"
+        },
+        "connection_top_icon": {
+            "x": 120,
+            "y": 52
+        },
+        "time_text": {
+            "x": 262,
+            "y": 105,
+            "font_size": "medium"
+        },
+        "date_text": {
+            "x": 262,
+            "y": 68,
+            "font_size": "small"
+        },
+        "battery_text": {
+            "x": 1612,
+            "y": 60,
+            "font_size": "small"
+        },
+        "battery_top_icon": {
+            "x": 1590,
+            "y": 65
+        }
+    }
+}

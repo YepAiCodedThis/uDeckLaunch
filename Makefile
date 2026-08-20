@@ -8,10 +8,7 @@ export UL_DEFS	:=	-DUL_MAJOR=$(VERSION_MAJOR) -DUL_MINOR=$(VERSION_MINOR) -DUL_M
 OUT_DIR				:=	SdOut
 OUT_DIR_ZIP			:=	uLaunch-v$(VERSION)
 
-OUT_THEME_MUSIC		:=	default-theme-music-v$(VERSION).ultheme
-THEME_MUSIC_TEMP	:=	default-theme-music-tmp
-
-.PHONY: all fresh clean libs arc usystem uloader umenu umanager uscreen udesigner default-theme-music package
+.PHONY: all fresh clean libs arc usystem uloader umenu umanager umanager-pack umanager-installer-nro installer package
 
 all: package
 
@@ -22,8 +19,6 @@ clean:
 	@$(MAKE) clean -C projects/uLoader
 	@$(MAKE) clean -C projects/uMenu
 	@$(MAKE) clean -C projects/uManager
-	@$(MAKE) clean -C projects/uDesigner
-	@cd projects/uScreen && mvn clean
 	@rm -rf $(OUT_DIR)
 	@rm -rf $(OUT_DIR_ZIP).7z $(OUT_DIR_ZIP).zip
 
@@ -57,42 +52,38 @@ umenu: arc libs
 	@$(MAKE) -C projects/uMenu
 	@mkdir -p $(OUT_DIR)/ulaunch/bin/uMenu
 	@mkdir -p $(OUT_DIR)/ulaunch/lang/uMenu
-	@mkdir -p $(OUT_DIR)/ulaunch/themes
 	@cp projects/uMenu/uMenu.nso $(OUT_DIR)/ulaunch/bin/uMenu/main
 	@cp projects/uMenu/uMenu.npdm $(OUT_DIR)/ulaunch/bin/uMenu/main.npdm
 	@cp assets/Logo.png projects/uMenu/romfs/Logo.png
+	@cp assets/Icon.png projects/uMenu/romfs/Icon.png
+	@rm -rf projects/uMenu/romfs/privacy
+	@mkdir -p projects/uMenu/romfs/privacy
+	@cp assets/privacy/*.jpg projects/uMenu/romfs/privacy/
 	@rm -rf projects/uMenu/romfs/default
-	@cp -r default-theme/ projects/uMenu/romfs/default/
+	@mkdir -p projects/uMenu/romfs/default/ui
+	@cp assets/ui/UI.json projects/uMenu/romfs/default/ui/UI.json
 	@build_romfs projects/uMenu/romfs $(OUT_DIR)/ulaunch/bin/uMenu/romfs.bin
 
+installer: umenu umanager-pack umanager-installer-nro
+
+umanager-pack:
+	@powershell -ExecutionPolicy Bypass -File tools/pack-installer-romfs.ps1
+
+umanager-installer-nro:
+	@cp assets/Logo.png projects/uManager/romfs/Logo.png
+	@$(MAKE) -C projects/uManager
+	@mkdir -p $(OUT_DIR)/switch/uDeckLaunch
+	@cp projects/uManager/uManager.nro $(OUT_DIR)/switch/uDeckLaunch/uDeckLaunch.nro
+	@echo "Installer: $(OUT_DIR)/switch/uDeckLaunch/uDeckLaunch.nro"
+
 umanager: arc libs
+	@cp assets/Logo.png projects/uManager/romfs/Logo.png
 	@$(MAKE) -C projects/uManager
 	@mkdir -p $(OUT_DIR)/ulaunch/lang/uManager
 	@mkdir -p $(OUT_DIR)/switch
 	@cp projects/uManager/uManager.nro $(OUT_DIR)/switch/uManager.nro
 
-uscreen:
-	@cd projects/uScreen && mvn package
-
-udesigner:
-	@cd default-theme && rm -rf default-theme.ultheme && zip -r default-theme.ultheme theme ui sound
-	@mv default-theme/default-theme.ultheme projects/uDesigner/assets/default-theme.ultheme
-	@cp assets/Logo.png projects/uDesigner/assets/Logo.png
-	@$(MAKE) -C projects/uDesigner
-
-default-theme-music:
-	@echo "Creating default-theme-music..."
-	@rm -rf $(THEME_MUSIC_TEMP)
-	@rm -rf $(OUT_THEME_MUSIC)
-	@mkdir -p $(THEME_MUSIC_TEMP)
-	@cp -r default-theme/ui $(THEME_MUSIC_TEMP)/ui
-	@cp -r default-theme-music/theme $(THEME_MUSIC_TEMP)/theme
-	@cp -r default-theme-music/sound $(THEME_MUSIC_TEMP)/sound
-	@cd $(THEME_MUSIC_TEMP) && zip -r ../$(OUT_THEME_MUSIC) sound theme ui
-	@rm -rf $(THEME_MUSIC_TEMP)
-	@echo "Created default-theme-music: $(OUT_THEME_MUSIC)!"
-
-package: arc usystem uloader umenu umanager uscreen default-theme-music
+package: arc usystem uloader umenu umanager
 	@rm -rf $(OUT_DIR_ZIP).7z $(OUT_DIR_ZIP).zip
 	@cd $(OUT_DIR) && 7z a ../$(OUT_DIR_ZIP).7z atmosphere ulaunch switch
 	@cd $(OUT_DIR) && zip -r ../$(OUT_DIR_ZIP).zip atmosphere ulaunch switch

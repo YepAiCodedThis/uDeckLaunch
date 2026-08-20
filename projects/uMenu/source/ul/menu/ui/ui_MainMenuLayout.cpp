@@ -284,7 +284,13 @@ namespace ul::menu::ui {
                             }
                             case EntryType::SpecialEntryAlbum: {
                                 pu::audio::PlaySfx(this->open_album_sfx);
-                                ShowAlbum();
+                                if(this->menu_keys_held & HidNpadButton_R) {
+                                    g_MenuApplication->FadeOutToNonLibraryApplet();
+                                    UL_RC_ASSERT(smi::LaunchHomebrewLibraryApplet(ul::HbmenuPath, ul::HbmenuPath));
+                                    g_MenuApplication->Finalize();
+                                } else {
+                                    ShowAlbum();
+                                }
                                 break;
                             }
                             case EntryType::SpecialEntryAmiibo: {
@@ -641,7 +647,7 @@ namespace ul::menu::ui {
         }
     }
 
-    MainMenuLayout::MainMenuLayout() : IMenuLayout(), last_quick_menu_on(false), start_time_elapsed(false), is_incrementing_decrementing(false), next_reload_user_changed(false) {
+    MainMenuLayout::MainMenuLayout() : IMenuLayout(), last_quick_menu_on(false), start_time_elapsed(false), is_incrementing_decrementing(false), next_reload_user_changed(false), menu_keys_held(0) {
         UL_LOG_INFO("Creating MainMenuLayout...");
         const auto time = std::chrono::system_clock::now();
         // TODO (low priority): like nxlink but for sending themes and quickly being able to test them?
@@ -846,6 +852,7 @@ namespace ul::menu::ui {
     }
 
     void MainMenuLayout::OnMenuInput(const u64 keys_down, const u64 keys_up, const u64 keys_held, const pu::ui::TouchPoint touch_pos) {
+        this->menu_keys_held = keys_held;
         const auto quick_menu_on = this->quick_menu->IsOn();
         if(this->last_quick_menu_on != quick_menu_on) {
             this->last_quick_menu_on = quick_menu_on;

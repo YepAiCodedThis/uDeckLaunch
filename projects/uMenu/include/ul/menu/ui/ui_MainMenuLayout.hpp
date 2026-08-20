@@ -80,6 +80,7 @@ namespace ul::menu::ui {
             pu::audio::Sfx menu_increment_sfx;
             pu::audio::Sfx menu_decrement_sfx;
             bool next_reload_user_changed;
+            u64 menu_keys_held;
 
             void DoMoveTo(const std::string &new_path);
             void menu_EntryInputPressed(const u64 keys_down);

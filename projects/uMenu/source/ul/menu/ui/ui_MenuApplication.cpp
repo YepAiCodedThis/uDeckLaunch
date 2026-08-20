@@ -1,5 +1,8 @@
 #include <ul/menu/ui/ui_MenuApplication.hpp>
 #include <ul/menu/smi/smi_Commands.hpp>
+#include <ul/menu/deck/deck_sys.h>
+#include <ul/menu/deck/deck_lang.h>
+#include <ul/menu/deck/settings.h>
 
 extern ul::menu::ui::GlobalSettings g_GlobalSettings;
 extern ul::menu::ui::MenuApplication::Ref g_MenuApplication;
@@ -56,7 +59,7 @@ namespace ul::menu::ui {
                 break;
             case MenuType::Main:
                 if(this->main_menu_lyt == nullptr) {
-                    this->main_menu_lyt = MainMenuLayout::New();
+                    this->main_menu_lyt = DeckMainMenuLayout::New();
                     this->main_menu_lyt->LoadSfx();
                     TryParseBgmEntry("main_menu", "Main", g_GlobalSettings.main_menu_bgm);
                     this->main_menu_lyt->Initialize();
@@ -86,6 +89,10 @@ namespace ul::menu::ui {
         }
     }
 
+    void MenuApplication::PrewarmMainMenu() {
+        this->EnsureLayoutCreated(MenuType::Main);
+    }
+
     void MenuApplication::OnLoad() {
         UL_LOG_INFO("MenuApplication::OnLoad start...");
         const auto time = std::chrono::system_clock::now();
@@ -113,6 +120,12 @@ namespace ul::menu::ui {
         this->SetFadeAlphaIncrementStepCount(FastFadeAlphaIncrementSteps);
 
         InitializeResources();
+
+        {
+            DhSettings cfg;
+            dh_settings_load(&cfg);
+            dh_lang_apply(cfg.lang);
+        }
 
         _LOG_SOFAR("done initializing resources");
 
@@ -193,7 +206,8 @@ namespace ul::menu::ui {
                 break;
             }
             case smi::MenuStartMode::SettingsMenu: {
-                this->LoadMenu(MenuType::Settings, false);
+                deck_sys_request_overlay();
+                this->LoadMenu(MenuType::Main, false);
                 break;
             }
             default: {
@@ -236,21 +250,21 @@ namespace ul::menu::ui {
 
     void MenuApplication::SetBackgroundFade() {
         this->SetFadeAlphaIncrementStepCount(FastFadeAlphaIncrementSteps);
-        if(!this->HasFadeBackgroundImage()) {
-            this->SetFadeBackgroundImage(GetBackgroundTexture());
-        }
+        this->SetFadeBackgroundColor({ 0x0E, 0x14, 0x1B, 0xFF });
     }
 
     void MenuApplication::LoadMenu(const MenuType type, const bool fade, MenuFadeCallback fade_cb) {
-        this->StopPlayBgm();
-
         if(fade) {
+            this->StopPlayBgm();
             this->SetBackgroundFade();
             this->FadeOut();
 
             if(fade_cb) {
                 fade_cb();
             }
+        }
+        else {
+            pu::audio::StopMusic();
         }
 
         this->EnsureLayoutCreated(type);

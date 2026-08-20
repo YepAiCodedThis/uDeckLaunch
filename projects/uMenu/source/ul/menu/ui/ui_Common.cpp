@@ -2,6 +2,7 @@
 #include <ul/menu/ui/ui_MenuApplication.hpp>
 #include <ul/menu/ui/ui_MainMenuLayout.hpp>
 #include <ul/menu/ui/ui_MenuApplication.hpp>
+#include <ul/menu/deck/deck_sys.h>
 #include <ul/util/util_Scope.hpp>
 #include <ul/fs/fs_Stdio.hpp>
 #include <ul/system/system_Message.hpp>
@@ -206,7 +207,28 @@ namespace ul::menu::ui {
             return g_DefaultThemeUiJson[name];
         }
 
-        UL_ASSERT_FAIL("Required value not found in active theme nor default theme: '%s'", name.c_str());
+        if(name == "suspended_app_final_alpha") {
+            return 80;
+        }
+        static const char *kDeckColors[][2] = {
+            { "text_color", "#DCDEDFFF" },
+            { "toast_base_color", "#161B22FF" },
+            { "toast_text_color", "#DCDEDFFF" },
+            { "menu_focus_color", "#1A9FFFFF" },
+            { "menu_bg_color", "#161B22FF" },
+            { "dialog_title_color", "#DCDEDFFF" },
+            { "dialog_cnt_color", "#DCDEDFFF" },
+            { "dialog_opt_color", "#DCDEDFFF" },
+            { "dialog_color", "#161B22FF" },
+            { "dialog_over_color", "#1A9FFFFF" },
+        };
+        for(size_t i = 0; i < sizeof(kDeckColors) / sizeof(kDeckColors[0]); i++) {
+            if(name == kDeckColors[i][0]) {
+                return kDeckColors[i][1];
+            }
+        }
+        UL_LOG_WARN("Missing UI value '%s', using deck text color", name.c_str());
+        return "#DCDEDFFF";
     }
 
     bool TryGetBgmJsonValue(const std::string &name, util::JSON &out_json) {
@@ -296,11 +318,14 @@ namespace ul::menu::ui {
     }
 
     void ShowAboutDialog() {
-        g_MenuApplication->DisplayDialog("uLaunch v" + std::string(UL_VERSION), GetLanguageString("ulaunch_about") + ":\nhttps://github.com/XorTroll/uLaunch", { GetLanguageString("ok") }, true, g_LogoTexture);
+        g_MenuApplication->DisplayDialog("uDeckLaunch v" + std::string(UL_VERSION), GetLanguageString("udeck_about"), { GetLanguageString("ok") }, true, g_LogoTexture);
     }
 
     void ShowSettingsMenu() {
-        g_MenuApplication->LoadMenu(MenuType::Settings);
+        deck_sys_request_overlay();
+        if(g_MenuApplication->GetLoadedMenu() != MenuType::Main) {
+            g_MenuApplication->LoadMenu(MenuType::Main);
+        }
     }
 
     void ShowThemesMenu() {

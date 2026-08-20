@@ -1,4 +1,7 @@
 #include <ul/man/ui/ui_MainApplication.hpp>
+#include <ul/man/man_Manager.hpp>
+#include <ul/man/man_Install.hpp>
+#include <ul/fs/fs_Stdio.hpp>
 #include <ul/sf/sf_PublicService.hpp>
 
 ul::man::ui::MainApplication::Ref g_MainApplication;
@@ -7,6 +10,28 @@ namespace {
 
     bool g_IsAvailable;
     ul::Version g_GotVersion;
+
+    void RebootSystem() {
+        UL_RC_ASSERT(spsmInitialize());
+        spsmShutdown(true);
+    }
+
+    bool TryAutoInstall() {
+        if(ul::man::IsBasePresent() && ul::man::IsSystemActive()) {
+            return false;
+        }
+
+        if(!ul::man::HasEmbeddedPayload()) {
+            return false;
+        }
+
+        if(!ul::man::InstallAndActivate()) {
+            return false;
+        }
+
+        RebootSystem();
+        return true;
+    }
 
     void Initialize() {
         UL_RC_ASSERT(nsInitialize());
@@ -26,8 +51,13 @@ namespace {
 }
 
 int main() {
-    ul::InitializeLogging("uManager");
+    ul::InitializeLogging("uDeckLaunch");
     Initialize();
+
+    if(TryAutoInstall()) {
+        Finalize();
+        return 0;
+    }
 
     auto renderer_opts = pu::ui::render::RendererInitOptions(SDL_INIT_EVERYTHING, pu::ui::render::RendererHardwareFlags);
 
@@ -48,6 +78,7 @@ int main() {
 
     g_MainApplication = ul::man::ui::MainApplication::New(renderer);
     g_MainApplication->Set(g_IsAvailable, g_GotVersion.Equals(ul::CurrentVersion), g_GotVersion);
+    g_MainApplication->SetFadeBackgroundColor({ 0x0E, 0x14, 0x1B, 0xFF });
     UL_RC_ASSERT(g_MainApplication->Load());
     g_MainApplication->ShowWithFadeIn();
 

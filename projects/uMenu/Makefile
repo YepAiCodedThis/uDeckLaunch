@@ -19,9 +19,9 @@ include $(DEVKITPRO)/libnx/switch_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source source/ul source/ul/menu source/ul/menu/am source/ul/menu/smi source/ul/menu/smi/sf source/ul/menu/bt source/ul/menu/ui source/ul/menu/ui/menu
+SOURCES		:=	source source/ul source/ul/menu source/ul/menu/am source/ul/menu/smi source/ul/menu/smi/sf source/ul/menu/bt source/ul/menu/ui source/ul/menu/ui/menu source/ul/menu/deck
 DATA		:=	data
-INCLUDES	:=	include
+INCLUDES	:=	include include/ul/menu/deck
 EXEFS_SRC	:=	exefs_src
 
 #---------------------------------------------------------------------------------
@@ -31,7 +31,8 @@ ARCH	:=	-march=armv8-a -mtune=cortex-a57 -mtp=soft -fPIE -Wl,-wrap,libappletLaun
 
 CFLAGS	:=	-g -O2 -ffunction-sections -Wall -Werror $(ARCH) $(DEFINES)
 
-CFLAGS	+=	$(INCLUDE) -D__SWITCH__ $(UL_DEFS)
+CFLAGS	+=	$(INCLUDE) -I$(PORTLIBS)/include/SDL2 -D__SWITCH__ -DDH_ULAUNCH $(UL_DEFS)
+CFLAGS	+=	-Wno-error=unused-variable -Wno-error=unused-function -Wno-error=unused-but-set-variable -Wno-error=format-truncation
 
 CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++23
 
@@ -44,7 +45,7 @@ LIBNX_EXT		:=	$(CURDIR)/../../libs/libnx-ext/libnx-ext
 LIBNX_IPCEXT	:=	$(CURDIR)/../../libs/libnx-ext/libnx-ipcext
 INCLUDES 		+=	/../../libs/json/single_include/nlohmann /../../libs/zip/src
 
-LIBS	:= -lpu -lfreetype -lSDL2_mixer -lopusfile -lopus -lmodplug -lmpg123 -lvorbisidec -logg -lSDL2_ttf -lSDL2_gfx -lSDL2_image -lSDL2 -lEGL -lGLESv2 -lglapi -ldrm_nouveau -lwebp -lpng -ljpeg `sdl2-config --libs` `freetype-config --libs` -luCommon -lnx-ipcext -lnx-ext -lbz2 -lharfbuzz -lz -lnx
+LIBS	:= -lpu -lcurl -lfreetype -lSDL2_mixer -lopusfile -lopus -lmodplug -lmpg123 -lvorbisidec -logg -lSDL2_ttf -lSDL2_gfx -lSDL2_image -lSDL2 -lEGL -lGLESv2 -lglapi -ldrm_nouveau -lwebp -lpng -ljpeg `sdl2-config --libs` `freetype-config --libs` -luCommon -lnx-ipcext -lnx-ext -lbz2 -lharfbuzz -lz -lnx
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing

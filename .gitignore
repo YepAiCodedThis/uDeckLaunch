@@ -1,6 +1,10 @@
+# Build outputs
 build/
-.vscode/
 lib/
+bin/
+obj/
+out/
+target/
 SdOut/
 *.elf
 *.npdm
@@ -9,20 +13,48 @@ SdOut/
 *.nacp
 *.nro
 *.lst
+*.map
 *.gen.hpp
-.vs/
-bin/
-obj/
-old/
-out/
-target/
-projects/uMenu/romfs/default
-projects/uMenu/romfs/Logo.png
-projects/uDesigner/assets/Logo.png
-projects/uDesigner/assets/default-theme.ultheme
 *.ultheme
 *.zip
 *.7z
-dev/
+
+# Generated into romfs by `make umenu`
+projects/uMenu/romfs/default
+projects/uMenu/romfs/Logo.png
+projects/uMenu/romfs/Icon.png
+projects/uMenu/romfs/privacy
+projects/uManager/romfs/Logo.png
+
+# Local / IDE
+.vscode/
+.vs/
+.idea/
+.dev/
 compile_flags.txt
 .clangd
+.codegraph/
+
+# Not needed to build uDeckLaunch
+_vendor/
+projects/uScreen/
+projects/uDesigner/
+default-theme-music/
+demos/
+assets/orig/
+assets/**/*.xcf
+*.xcf
+crowdin.yml
+cur-changelog.md
+.github/FUNDING.yml
+tools/fix-r-album-hbl.ps1
+assets/uManager.jpg
+projects/uManager/icon.jpg
+libs/imgui/
+libs/stb/
+
+# Machine-local SteamGridDB keys
+sgdb.key
+sgdb_key.txt
+**/sgdb.key
+**/sgdb_key.txt

@@ -1,25 +1,88 @@
 #include <ul/menu/ui/ui_StartupMenuLayout.hpp>
 #include <ul/menu/ui/ui_MenuApplication.hpp>
-#include <ul/fs/fs_Stdio.hpp>
-#include <ul/acc/acc_Accounts.hpp>
+#include <ul/menu/ui/ui_Common.hpp>
 #include <ul/menu/smi/smi_Commands.hpp>
+
+extern "C" {
+#include <userpick.h>
+#include <titles.h>
+#include <theme.h>
+#include <deck_fonts.h>
+#include <sfx.h>
+#include <settings.h>
+#include <deck_lang.h>
+}
 
 extern ul::menu::ui::GlobalSettings g_GlobalSettings;
 extern ul::menu::ui::MenuApplication::Ref g_MenuApplication;
 
 namespace ul::menu::ui {
 
+    namespace {
+
+        DhUserpick *g_Userpick = nullptr;
+        DhFonts g_UserpickFonts = {};
+        DhTheme g_UserpickTheme = {};
+
+        class UserPickElement : public pu::ui::elm::Element {
+            public:
+                PU_SMART_CTOR(UserPickElement)
+
+                s32 GetX() override {
+                    return 0;
+                }
+
+                s32 GetY() override {
+                    return 0;
+                }
+
+                s32 GetWidth() override {
+                    return 1920;
+                }
+
+                s32 GetHeight() override {
+                    return 1080;
+                }
+
+                void OnRender(pu::ui::render::Renderer::Ref &drawer, const s32 x, const s32 y) override {
+                    (void)drawer;
+                    (void)x;
+                    (void)y;
+                    auto *ren = pu::ui::render::GetMainRenderer();
+                    if((g_Userpick == nullptr) || (ren == nullptr)) {
+                        return;
+                    }
+                    dh_userpick_tick(g_Userpick, ren);
+                    dh_userpick_draw(g_Userpick, ren);
+                }
+
+                void OnInput(const u64 keys_down, const u64 keys_up, const u64 keys_held, const pu::ui::TouchPoint touch_pos) override {
+                    (void)keys_down;
+                    (void)keys_up;
+                    (void)keys_held;
+                    (void)touch_pos;
+                }
+        };
+
+    }
+
     void StartupMenuLayout::user_DefaultKey(const AccountUid uid) {
-        // Note: menu loading is invoked below instead of here so that the main menu doesn't also register the button input which caused this action...
-        this->load_menu = true;
         pu::audio::PlaySfx(this->user_select_sfx);
+        dh_sfx_startup();
         g_GlobalSettings.SetSelectedUser(uid);
 
         auto &main_menu_lyt = g_MenuApplication->GetMainMenuLayout();
         if(main_menu_lyt != nullptr) {
             main_menu_lyt->NotifyNextReloadUserChanged();
         }
-        g_MenuApplication->LoadMenu(MenuType::Main);
+
+        /* Same Deck black on both screens — skip Plutonium fade (it hitchs).
+           Load the launcher first so draw/fonts stay refcounted, then drop user-pick. */
+        g_MenuApplication->LoadMenu(MenuType::Main, false);
+        if(g_Userpick != nullptr) {
+            dh_userpick_detach_titles(g_Userpick);
+        }
+        this->DestroyUserPick();
     }
 
     void StartupMenuLayout::create_DefaultKey() {
@@ -30,72 +93,111 @@ namespace ul::menu::ui {
         g_MenuApplication->Finalize();
     }
 
-    StartupMenuLayout::StartupMenuLayout() : IMenuLayout() {
-        this->load_menu = false;
-
+    StartupMenuLayout::StartupMenuLayout() : IMenuLayout(), load_menu(false), userpick_ready(false), pending_uid{} {
         this->user_create_sfx = nullptr;
         this->user_select_sfx = nullptr;
+        this->SetBackgroundColor({ 0x0E, 0x14, 0x1B, 0xFF });
+        this->Add(UserPickElement::New());
+    }
 
-        this->info_text = pu::ui::elm::TextBlock::New(0, 0, GetLanguageString("startup_welcome_info"));
-        this->info_text->SetColor(g_MenuApplication->GetTextColor());
-        g_GlobalSettings.ApplyConfigForElement("startup_menu", "info_text", this->info_text);
-        this->Add(this->info_text);
+    StartupMenuLayout::~StartupMenuLayout() {
+        this->DestroyUserPick();
+    }
 
-        this->users_menu = pu::ui::elm::Menu::New(0, 0, UsersMenuWidth, g_MenuApplication->GetMenuBackgroundColor(), g_MenuApplication->GetMenuFocusColor(), UsersMenuItemSize, UsersMenuItemsToShow);
-        g_GlobalSettings.ApplyConfigForElement("startup_menu", "users_menu", this->users_menu);
-        this->Add(this->users_menu);
+    void StartupMenuLayout::EnsureUserPick() {
+        if(this->userpick_ready) {
+            return;
+        }
+        auto *ren = pu::ui::render::GetMainRenderer();
+        if(ren == nullptr) {
+            return;
+        }
 
-        this->Add(GetScreenCaptureBackground());
+        dh_theme_init(&g_UserpickTheme);
+        if(deck_fonts_load(&g_UserpickFonts) != 0) {
+            UL_LOG_WARN("Userpick fonts missing");
+            return;
+        }
+
+        g_Userpick = dh_userpick_create(ren, &g_UserpickFonts, &g_UserpickTheme);
+        if(g_Userpick == nullptr) {
+            deck_fonts_close(&g_UserpickFonts);
+            return;
+        }
+
+        dh_userpick_set_title(g_Userpick, dh_lang("who_playing"));
+        auto logo = GetLogoTexture();
+        if(logo != nullptr) {
+            dh_userpick_set_logo(g_Userpick, logo->Get());
+        }
+        this->userpick_ready = true;
+    }
+
+    void StartupMenuLayout::DestroyUserPick() {
+        if(g_Userpick != nullptr) {
+            dh_userpick_destroy(g_Userpick);
+            g_Userpick = nullptr;
+        }
+        deck_fonts_close(&g_UserpickFonts);
+        this->userpick_ready = false;
     }
 
     void StartupMenuLayout::LoadSfx() {
         this->user_create_sfx = pu::audio::LoadSfx(TryGetActiveThemeResource("sound/Startup/UserCreate.wav"));
         this->user_select_sfx = pu::audio::LoadSfx(TryGetActiveThemeResource("sound/Startup/UserSelect.wav"));
     }
-    
+
     void StartupMenuLayout::DisposeSfx() {
         pu::audio::DestroySfx(this->user_create_sfx);
         pu::audio::DestroySfx(this->user_select_sfx);
     }
 
     void StartupMenuLayout::OnMenuInput(const u64 keys_down, const u64 keys_up, const u64 keys_held, const pu::ui::TouchPoint touch_pos) {
-        UpdateScreenCaptureBackground(false);
+        (void)keys_up;
+        (void)keys_held;
+        this->EnsureUserPick();
+        if(this->load_menu) {
+            this->load_menu = false;
+            this->user_DefaultKey(this->pending_uid);
+            return;
+        }
+        if(g_Userpick == nullptr) {
+            return;
+        }
+
+        const int tx = touch_pos.IsEmpty() ? -1 : touch_pos.x;
+        const int ty = touch_pos.IsEmpty() ? -1 : touch_pos.y;
+        const auto action = dh_userpick_handle_input(g_Userpick, keys_down, tx, ty);
+        if(action == DH_USERPICK_SELECT) {
+            AccountUid uid = {};
+            if(dh_userpick_selected_uid(g_Userpick, &uid)) {
+                this->pending_uid = uid;
+                this->load_menu = true;
+            }
+        }
+        else if(action == DH_USERPICK_ADD) {
+            this->create_DefaultKey();
+        }
+    }
+
+    void StartupMenuLayout::OnMenuUpdate() {
+        this->EnsureUserPick();
+        if(this->userpick_ready) {
+            g_MenuApplication->PrewarmMainMenu();
+        }
     }
 
     bool StartupMenuLayout::OnHomeButtonPress() {
-        // ...
         return true;
     }
 
     void StartupMenuLayout::ReloadMenu() {
-        this->users_menu->ClearItems();
-
-        std::vector<AccountUid> user_ids;
-        UL_RC_ASSERT(acc::ListAccounts(user_ids));
-        for(const auto &user_id: user_ids) {
-            std::string name;
-            if(R_SUCCEEDED(acc::GetAccountName(user_id, name))) {
-                auto user_item = pu::ui::elm::MenuItem::New(name);
-
-                u8 *user_icon_buf = nullptr;
-                size_t user_icon_size = 0;
-                UL_RC_ASSERT(acc::LoadAccountImage(user_id, user_icon_buf, user_icon_size));
-                auto user_icon = pu::sdl2::TextureHandle::New(pu::ui::render::LoadImageFromBuffer(user_icon_buf, user_icon_size));
-                delete[] user_icon_buf;
-                user_item->SetIcon(user_icon);
-
-                user_item->AddOnKey(std::bind(&StartupMenuLayout::user_DefaultKey, this, user_id));
-                user_item->SetColor(g_MenuApplication->GetTextColor());
-                this->users_menu->AddItem(user_item);
-            }
+        this->EnsureUserPick();
+        this->load_menu = false;
+        if(g_Userpick != nullptr) {
+            dh_userpick_set_title(g_Userpick, dh_lang("who_playing"));
+            dh_userpick_reload(g_Userpick);
         }
-
-        auto create_user_item = pu::ui::elm::MenuItem::New(GetLanguageString("startup_add_user"));
-        create_user_item->SetColor(g_MenuApplication->GetTextColor());
-        create_user_item->AddOnKey(std::bind(&StartupMenuLayout::create_DefaultKey, this));
-        this->users_menu->AddItem(create_user_item);
-
-        this->users_menu->SetSelectedIndex(0);
     }
 
 }

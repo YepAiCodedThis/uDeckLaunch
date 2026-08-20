@@ -17,10 +17,11 @@ namespace ul::man::ui {
 
         auto toast_text = pu::ui::elm::TextBlock::New(0, 0, "...");
         toast_text->SetFont(pu::ui::GetDefaultFont(pu::ui::DefaultFontSize::Medium));
-        toast_text->SetColor(pu::ui::Color(225, 225, 225, 255));
-        this->toast = pu::ui::extras::Toast::New(toast_text, pu::ui::Color(40, 40, 40, 255));
+        toast_text->SetColor(pu::ui::Color(0xDC, 0xDE, 0xDF, 255));
+        this->toast = pu::ui::extras::Toast::New(toast_text, pu::ui::Color(0x16, 0x1B, 0x22, 255));
 
         this->SetOnInput(std::bind(&MainApplication::OnInput, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+        this->SetFadeBackgroundColor({ 0x0E, 0x14, 0x1B, 0xFF });
         this->LoadLayout(this->main_menu_lyt);
     }
 
