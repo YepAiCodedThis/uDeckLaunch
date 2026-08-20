@@ -98,15 +98,8 @@ All of this is in uDeckLaunch itself. There is no separate theme picker.
 
 Needs [Atmosphère](https://github.com/Atmosphere-NX/Atmosphere). Built against AMS 1.11.x / uLaunch 1.2.5.
 
-1. Build the installer:
-
-```bash
-export DEVKITPRO=/opt/devkitpro
-cd uDeckLaunch
-make installer
-```
-
-2. Copy one file to the SD card:
+1. Download `uDeckLaunch.nro` from [Releases](https://github.com/YepAiCodedThis/uDeckLaunch/releases).
+2. Copy it to the SD card as:
 
 ```
 switch/uDeckLaunch/uDeckLaunch.nro
@@ -115,8 +108,6 @@ switch/uDeckLaunch/uDeckLaunch.nro
 3. Boot Atmosphère, open **hbmenu** (R + game, or R + Album), run **uDeckLaunch**.
 
 On first run it unpacks to the SD card, activates the HOME overlay, and reboots. After that, uDeckLaunch HOME loads on its own.
-
-A GitHub Actions build also produces `SdOut.zip` if you do not want to compile locally.
 
 To disable without uninstalling: run the same NRO from hbmenu and turn activation off.
 
